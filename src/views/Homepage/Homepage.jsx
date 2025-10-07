@@ -1,39 +1,69 @@
-import { Card, Grid, GridItem, Image, Stack, Text } from "@chakra-ui/react"
+import { Button, Card, Field, Grid, GridItem, Image, Input, Stack, Text } from "@chakra-ui/react"
 import BannerImage from '../../assets/images/homepage-banner.png'
 
 const Homepage = () => {
   return (
     <Stack width='100%' height='100%' alignItems='center' gap={0}>
-      <Stack bgColor='primary' alignItems='center'>
+      <Stack bgColor='primary' alignItems='center' pt={2}>
         <Text fontWeight={800} pt={2} fontSize={30}>Thinking about joining the retriever community?</Text>
         <Grid
           templateColumns='repeat(12, 1fr)'
+          templateRows='repeat(12, 1fr)'
           mx={4}
-          height='400px'
+          height='600px'
         >
-          <GridItem colSpan={8}>
-            <Text>
-              This is sample text but I don't want to use lorem ipsum because I would have to look that up to copy paste it
+          <GridItem colSpan={12}>
+            <Text fontSize={40} py={4} px={8}>
+              Start your journey here by filling out this form to see the best course of action for you!
             </Text>
           </GridItem>
-          <GridItem colSpan={4}>
-            <Card.Root p={2} bgColor='secondary' border='none' width='100%'>
-              <Card.Header>
-                <Card.Title>Sign up</Card.Title>
-                <Card.Description>
-                  Fill in the form below to create an account
-                </Card.Description>
-              </Card.Header>
-              <Card.Body>
-                <Text>
-                  This is sample text that will be replaced later. It needs to be long enough to emulate what it will look like
-                </Text>
-              </Card.Body>
-            </Card.Root>
+          <GridItem colSpan={8} p={2}>
+            <Image src={BannerImage} width='100%'/>
+          </GridItem>
+          <GridItem colSpan={4} p={4}>
+            <Stack justifyContent='center' spaceY={2}>
+              <Card.Root p={2} bgColor='secondary' border='none'>
+                <Card.Header>
+                  <Card.Title justifySelf='center'>Start Here</Card.Title>
+                </Card.Header>
+                <Card.Body spaceY={4}>
+                  <Field.Root width={60}>
+                    <Field.Label>
+                      Email
+                    </Field.Label>
+                    <Input
+                      placeholder='Enter Email Here'
+                      bgColor='white'
+                      border={0}
+                    />
+                  </Field.Root>
+                  <Field.Root width={60}>
+                    <Field.Label>
+                      First Name
+                    </Field.Label>
+                    <Input
+                      placeholder='First Name'
+                      bgColor='white'
+                      border={0}
+                    />
+                  </Field.Root>
+                  <Field.Root width={60}>
+                    <Field.Label>
+                      Last Name
+                    </Field.Label>
+                    <Input
+                      placeholder='Last Name'
+                      bgColor='white'
+                      border={0}
+                    />
+                  </Field.Root>
+                  <Button width='7rem'>Start</Button>
+                </Card.Body>
+              </Card.Root>
+            </Stack>
           </GridItem>
         </Grid>
       </Stack>
-      <Image src={BannerImage} width='100%'/>
       <Stack height='400px' width='100%'>
         <Text>Another sample textbox</Text>
       </Stack>
