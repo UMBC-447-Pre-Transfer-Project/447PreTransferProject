@@ -10,14 +10,16 @@ const Header = ({}) => {
         <Text fontSize={30} fontWeight='heading' color='white' width='100%'>
           UMBC Pre-Transfer
         </Text>
-        <InputGroup startElement={<CiSearch size={20}/>}>
-          <Input bgColor='default' placeholder='Search' width='400px'/>
-        </InputGroup>
       </Stack>
       <Box flex={1}/>
-      <IconButton justifySelf='flex-end'>
-        <CiMenuBurger/>
-      </IconButton>
+      <Stack direction='row' gap={10}>
+        <InputGroup startElement={<CiSearch size={20}/>} justifySelf='flex-end'>
+          <Input bgColor='default' placeholder='Search' width='400px'/>
+        </InputGroup>
+        <IconButton justifySelf='flex-end' px={4}>
+          <CiMenuBurger/>
+        </IconButton>
+      </Stack>
     </Stack>
   )
 }

@@ -9,6 +9,9 @@ const theme = createSystem(defaultConfig, defineConfig({
         secondary: { value: '#0097B2' },
         header: { value: '#000000' }
       },
+      gradients: {
+        loginBG: { value: 'linear(90, #FFDE59, #FF914D)' }
+      },
       fonts: {
           heading: { value: 'inter' }
       },
