@@ -1,7 +1,9 @@
-import { Button, Card, Field, Input, Link, Stack, Text } from "@chakra-ui/react"
-
+import { Box, Button, Card, Field, Image, Input, Stack, Text } from "@chakra-ui/react"
+import { PasswordInput } from "../../components/ui/password-input"
+import { Link } from 'react-router'
+import UMBCLogo from '../../assets/images/UMBC-header-logo.svg'
 const StaffLoginPage = () => {
-  const username = ''
+  const defaultValues = ''
   return (
     <Stack
       height='calc(100vh - 96px)'
@@ -12,12 +14,15 @@ const StaffLoginPage = () => {
     >
       <Card.Root
         variant='elevated'
-        height='400px'
+        height='500px'
         width='400px'
         textAlign='center'
         m={2}
       >
         <Card.Header>
+          <Box height='45px' width='45px'>
+            <Image src={UMBCLogo} width='100%'/>
+          </Box>
           <Card.Title>
             Sign-up / Sign-in
           </Card.Title>
@@ -25,18 +30,25 @@ const StaffLoginPage = () => {
         <Card.Body alignItems='center' spaceY={4}>
           <Field.Root m={2}>
             <Field.Label>Email/Username</Field.Label>
-            <Input />
+            <Input placeholder='Email/Username'/>
           </Field.Root>
           <Field.Root m={2}>
             <Field.Label>Password</Field.Label>
-            <Input />
+            <PasswordInput placeholder='Password'/>
           </Field.Root>
-          <Button width='5rem'>Sign-in</Button>
+          <Link to='/'>
+            <Button
+              onClick
+              width='5rem'
+            >
+              Sign-in
+            </Button>
+          </Link>
         </Card.Body>
         <Card.Footer justifyContent='center'>
           <Stack alignItems='center'>
             <Text fontSize={12}>Don't Have an Account?</Text>
-            <Link fontSize={12}>Click Here</Link>
+            <Text fontSize={12}>Click Here</Text>
           </Stack>
         </Card.Footer>
       </Card.Root>

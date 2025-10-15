@@ -1,12 +1,15 @@
 import { Box, IconButton, Image, Input, InputGroup, Stack, Text } from "@chakra-ui/react"
-import UMBCLogo from '../../assets/images/UMBC-header-logo.svg'
+import { Link } from 'react-router'
 import { CiMenuBurger, CiSearch } from "react-icons/ci";
+import UMBCLogo from '../../assets/images/UMBC-header-logo.svg'
 
 const Header = ({}) => {
   return (
     <Stack p={2} bgColor='header' width='100%' direction='row' alignItems='center'>
       <Stack direction='row' alignItems='center' spaceX={8}>
-        <Image src={UMBCLogo} height='5rem'/>
+        <Link to='/'>
+            <Image src={UMBCLogo} width='5rem'/>
+        </Link>
         <Text fontSize={30} fontWeight='heading' color='white' width='100%'>
           UMBC Pre-Transfer
         </Text>
