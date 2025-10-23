@@ -1,7 +1,16 @@
 import { Button, Card, Field, Grid, GridItem, Image, Input, Stack, Text } from "@chakra-ui/react"
+import { useDispatch, useSelector } from "react-redux"
 import BannerImage from '../../assets/images/homepage-banner.png'
+import { getAllStudents } from '../../slices/transferStudentSlice'
+import { useCallback, useEffect } from "react"
 
 const Homepage = () => {
+  const dispatch = useDispatch()
+  const test = useSelector(state => state.transferStudent)
+  useEffect(() => {
+    dispatch(getAllStudents())
+  }, [])
+
   return (
     <Stack width='100%' height='100%' alignItems='center' gap={0}>
       <Stack bgColor='primary' alignItems='center' pt={2}>
