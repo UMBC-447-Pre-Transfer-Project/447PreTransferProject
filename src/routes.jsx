@@ -2,8 +2,14 @@ import { createBrowserRouter } from 'react-router'
 import Homepage from './views/Homepage/Homepage'
 import StaffLoginPage from './views/StaffLoginPage/StaffLoginPage'
 import DefaultLayout from './views/DefaultLayout'
+import StaffLayout from './views/StaffLayout'
+import StaffDashboard from './views/StaffPage/StaffDashboard'
 
 const Router = createBrowserRouter([
+  {
+    path: '*',
+    element: <Homepage/>,
+  },
   {
     path: '/',
     element: <DefaultLayout/>,
@@ -19,9 +25,15 @@ const Router = createBrowserRouter([
     ]
   },
   {
-    path: '*',
-    element: <Homepage/>,
-  },
+    path: '/staff-dashboard',
+    element: <StaffLayout/>,
+    children: [
+      {
+        index: true,
+        element: <StaffDashboard/>
+      }
+    ]
+  }
 ])
 
 export default Router
