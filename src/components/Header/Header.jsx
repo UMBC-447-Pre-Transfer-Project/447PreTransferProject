@@ -44,11 +44,18 @@ const Header = ({}) => {
                   display='flex'
                   flexDirection='column'
                 >
-                  <Box>
-                    <Link to='/'>
-                      <Text textAlign='center'>Homepage</Text>
-                    </Link>
-                  </Box>
+                  <Stack spaceY={4}>
+                    <Box>
+                      <Link to='/'>
+                        <Text textAlign='center'>Homepage</Text>
+                      </Link>
+                    </Box>
+                    <Box>
+                      <Link to='/contact'>
+                        <Text textAlign='center'>Contact Page</Text>
+                      </Link>
+                    </Box>
+                  </Stack>
                   {/*This is for everything at the bottom*/}
                   <Box flexGrow={1}/>
                   <Box m={4}>
