@@ -5,8 +5,6 @@ import StaffUserPage from './views/StaffUserPage/StaffUserPage'
 import ContactPage from './views/ContactPage/ContactPage'
 import StaffLayout from './views/StaffLayout'
 import DefaultLayout from './views/DefaultLayout'
-import StaffLayout from './views/StaffLayout'
-import StaffDashboard from './views/StaffPage/StaffDashboard'
 
 const Router = createBrowserRouter([
   {
@@ -41,16 +39,6 @@ const Router = createBrowserRouter([
       }
     ]
   },
-  {
-    path: '/staff-dashboard',
-    element: <StaffLayout/>,
-    children: [
-      {
-        index: true,
-        element: <StaffDashboard/>
-      }
-    ]
-  }
 ])
 
 export default Router
