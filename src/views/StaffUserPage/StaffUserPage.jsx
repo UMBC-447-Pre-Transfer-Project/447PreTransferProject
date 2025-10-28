@@ -3,11 +3,14 @@ import { CiSearch } from "react-icons/ci"
 import { useState } from "react"
 
 const StaffUserPage = () => {
-  const [searchTerm, setSearchTerm] = useState("")
-  const [filterMajor, setFilterMajor] = useState("")
-  const [filterStatus, setFilterStatus] = useState("")
-  const [filterCredits, setFilterCredits] = useState("")
-  
+  const initialFilterValues = ({
+    searchTerm: '',
+    major: '',
+    status: '',
+    credits: ''
+  })
+  const [dialogState, setDialogState] = useState(initialFilterValues)
+
   // PLACEHOLDER STUDENT DATA
   const studentData = [
     { id: 1, firstName: "Alice", lastName: "Johnson", studentId: "AL123456", major: "Computer Science", creditsCompleted: 45, status: "Committed" },
@@ -23,22 +26,22 @@ const StaffUserPage = () => {
   // Get unique values for filters
   const uniqueMajors = [...new Set(studentData.map(s => s.major))].sort()
   const uniqueStatuses = [...new Set(studentData.map(s => s.status))].sort()
-  
+
   // Credit ranges for filter dropdown
   const creditRanges = [30, 40, 60, 75]
-  
+
   // Filter students based on search term and filters
   const filteredStudents = studentData.filter(student => {
     // Search by name (first or last) or student ID
-    const matchesSearch = searchTerm === "" || 
+    const matchesSearch = dialogState.searchTerm === "" ||
       student.firstName.toLowerCase().includes(searchTerm.toLowerCase()) ||
       student.lastName.toLowerCase().includes(searchTerm.toLowerCase()) ||
       student.studentId.toLowerCase().includes(searchTerm.toLowerCase())
-    
-    const matchesMajor = filterMajor === "" || student.major === filterMajor
-    const matchesStatus = filterStatus === "" || student.status === filterStatus
-    const matchesCredits = filterCredits === "" || student.creditsCompleted >= parseInt(filterCredits)
-    
+
+    const matchesMajor = dialogState.major === "" || student.major === dialogState.major
+    const matchesStatus = dialogState.status === "" || student.status === dialogState.status
+    const matchesCredits = dialogState.credits === "" || student.creditsCompleted >= parseInt(dialogState.credits)
+
     return matchesSearch && matchesMajor && matchesStatus && matchesCredits
   })
 
@@ -86,20 +89,19 @@ const StaffUserPage = () => {
 
       <Stack direction='row' gap={4} mb={4} flexWrap='wrap'>
         <InputGroup startElement={<CiSearch size={20}/>} width='300px'>
-          <Input 
-            placeholder='Search by name or student ID...' 
-            value={searchTerm}
+          <Input
+            placeholder='Search by name or student ID...'
+            value={dialogState.searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             bgColor='white'
             color='black'
           />
         </InputGroup>
-        
         <Box>
           <NativeSelect.Root>
-            <NativeSelect.Field 
-              value={filterMajor}
-              onChange={(e) => setFilterMajor(e.target.value)}
+            <NativeSelect.Field
+              value={dialogState.major}
+              onChange={(e) => setDialogState({ ...dialogState, major: e.target.value })}
               bgColor='white'
               color='black'
               style={{ color: 'black', backgroundColor: 'white' }}
@@ -111,12 +113,11 @@ const StaffUserPage = () => {
             </NativeSelect.Field>
           </NativeSelect.Root>
         </Box>
-        
         <Box>
           <NativeSelect.Root>
-            <NativeSelect.Field 
-              value={filterStatus}
-              onChange={(e) => setFilterStatus(e.target.value)}
+            <NativeSelect.Field
+              value={dialogState.status}
+              onChange={(e) => setDialogState({ ...dialogState, status: e.target.value })}
               bgColor='white'
               color='black'
               style={{ color: 'black', backgroundColor: 'white' }}
@@ -128,12 +129,11 @@ const StaffUserPage = () => {
             </NativeSelect.Field>
           </NativeSelect.Root>
         </Box>
-        
         <Box>
           <NativeSelect.Root>
-            <NativeSelect.Field 
-              value={filterCredits}
-              onChange={(e) => setFilterCredits(e.target.value)}
+            <NativeSelect.Field
+              value={dialogState.credits}
+              onChange={(e) => setDialogState({ ...dialogState, credits: e.target.value })}
               bgColor='white'
               color='black'
               style={{ color: 'black', backgroundColor: 'white' }}
@@ -145,15 +145,10 @@ const StaffUserPage = () => {
             </NativeSelect.Field>
           </NativeSelect.Root>
         </Box>
-        
         <Box flex={1} />
-        
-        <Button 
+        <Button
           onClick={() => {
-            setSearchTerm("")
-            setFilterMajor("")
-            setFilterStatus("")
-            setFilterCredits("")
+            setDialogState(initialFilterValues)
           }}
           colorScheme='red'
           bgColor='red.500'
