@@ -56,6 +56,11 @@ const Header = ({}) => {
                         <Text textAlign='center'>Contact Page</Text>
                       </Link>
                     </Box>
+                    <Box>
+                      <Link to='/staff'>
+                        <Text textAlign='center'>Student Dashboard</Text>
+                      </Link>
+                    </Box>
                   </Stack>
                   {/*This is for everything at the bottom*/}
                   <Box flexGrow={1}/>
