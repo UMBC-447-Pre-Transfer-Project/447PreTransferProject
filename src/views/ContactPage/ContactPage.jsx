@@ -1,5 +1,5 @@
 import { Card, Grid, GridItem, Stack, Text } from "@chakra-ui/react"
-import { Staff } from "../../constants/staff"
+import { Staff } from "../../constants/Staff"
 
 const ContactPage = () => {
   return (
