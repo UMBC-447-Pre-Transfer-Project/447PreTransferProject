@@ -43,6 +43,7 @@ const Header = ({}) => {
                   alignItems='center'
                   display='flex'
                   flexDirection='column'
+                  onClick={() => setOpen(false)}
                 >
                   <Stack spaceY={4}>
                     <Box>

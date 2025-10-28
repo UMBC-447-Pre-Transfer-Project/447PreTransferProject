@@ -4,7 +4,7 @@ import { CiMenuBurger, CiSearch } from "react-icons/ci"
 import { useState } from "react"
 import UMBCLogo from '../../assets/images/UMBC-header-logo.svg'
 
-const StaffHeader = ({}) => {
+const Header = ({}) => {
   const [open, setOpen] = useState(false)
 
   return (
@@ -43,12 +43,25 @@ const StaffHeader = ({}) => {
                   alignItems='center'
                   display='flex'
                   flexDirection='column'
+                  onClick={() => setOpen(false)}
                 >
-                  <Box>
-                    <Link to='/'>
-                      <Text textAlign='center'>Homepage</Text>
-                    </Link>
-                  </Box>
+                  <Stack spaceY={4}>
+                    <Box>
+                      <Link to='/'>
+                        <Text textAlign='center'>Homepage</Text>
+                      </Link>
+                    </Box>
+                    <Box>
+                      <Link to='/contact'>
+                        <Text textAlign='center'>Contact Page</Text>
+                      </Link>
+                    </Box>
+                    <Box>
+                      <Link to='/staff'>
+                        <Text textAlign='center'>Student Dashboard</Text>
+                      </Link>
+                    </Box>
+                  </Stack>
                   {/*This is for everything at the bottom*/}
                   <Box flexGrow={1}/>
                   <Box m={4}>
@@ -66,4 +79,4 @@ const StaffHeader = ({}) => {
   )
 }
 
-export default StaffHeader
+export default Header

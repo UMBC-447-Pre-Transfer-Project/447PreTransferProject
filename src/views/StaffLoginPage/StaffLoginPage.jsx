@@ -1,9 +1,16 @@
 import { Box, Button, Card, Field, Image, Input, Stack, Text } from "@chakra-ui/react"
 import { PasswordInput } from "../../components/ui/password-input"
-import { Link } from 'react-router'
+import { Link, useNavigate } from 'react-router'
 import UMBCLogo from '../../assets/images/UMBC-header-logo.svg'
+
 const StaffLoginPage = () => {
+  const navigate = useNavigate()
   const defaultValues = ''
+  
+  const handleSignIn = () => {
+    navigate('/staff')
+  }
+  
   return (
     <Stack
       height='calc(100vh - 96px)'
@@ -36,14 +43,12 @@ const StaffLoginPage = () => {
             <Field.Label>Password</Field.Label>
             <PasswordInput placeholder='Password'/>
           </Field.Root>
-          <Link to='/'>
-            <Button
-              onClick
-              width='5rem'
-            >
-              Sign-in
-            </Button>
-          </Link>
+          <Button
+            onClick={handleSignIn}
+            width='5rem'
+          >
+            Sign-in
+          </Button>
         </Card.Body>
         <Card.Footer justifyContent='center'>
           <Stack alignItems='center'>
