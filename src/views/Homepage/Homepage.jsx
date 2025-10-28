@@ -1,11 +1,12 @@
-import { Button, Card, Field, Grid, GridItem, Image, Input, Stack, Text } from "@chakra-ui/react"
+import { Button, Card, Checkbox, Field, Grid, GridItem, Image, Input, Stack, Text, Textarea, useDisclosure } from "@chakra-ui/react"
 import { useDispatch, useSelector } from "react-redux"
 import BannerImage from '../../assets/images/homepage-banner.png'
 import { getAllStudents } from '../../slices/studentSlice'
-import { useCallback, useEffect } from "react"
+import { useCallback, useEffect, useState } from "react"
 
 const Homepage = () => {
   const dispatch = useDispatch()
+  const [showPopup, setShowPopup] = useState(false)
   const test = useSelector(state => state.transferStudent)
   useEffect(() => {
     dispatch(getAllStudents())
@@ -74,7 +75,12 @@ const Homepage = () => {
                           border={0}
                         />
                       </Field.Root>
-                      <Button width='7rem'>Start</Button>
+                      <Button
+                        width='7rem'
+                        onClick={() => setShowPopup(true)}
+                      >
+                        Start
+                      </Button>
                     </Card.Body>
                   </Card.Root>
                 </Stack>
@@ -86,6 +92,71 @@ const Homepage = () => {
       <Stack height='400px' width='100%'>
         <Text>Another sample textbox</Text>
       </Stack>
+
+      {showPopup && (
+        <Stack
+          position="fixed"
+          top="0"
+          left="0"
+          width="100vw"
+          height="100vh"
+          bgColor="rgba(0,0,0,0.6)"
+          justifyContent="center"
+          alignItems="center"
+          zIndex={1000} >
+          <Stack
+            bgColor="white"
+            p={8}
+            borderRadius="lg"
+            boxShadow="2xl"
+            width={["90%", "600px"]}
+            maxHeight="80vh"
+            overflowY="auto"
+            spacing={5} >
+            <Text fontSize="2xl" fontWeight="bold" textAlign="center">
+              Transfer Form
+            </Text>
+            <Text fontSize="md" color="gray.600" textAlign="center">
+              Fill out the details below to help us guide your transition to UMBC!
+            </Text>
+            <Field.Root>
+              <Field.Label>Current Major</Field.Label>
+              <Input placeholder="e.g., Computer Science" bgColor="gray.50" border="1px solid #ccc" />
+            </Field.Root>
+            <Field.Root>
+              <Field.Label>Current / Previous College</Field.Label>
+              <Input placeholder="e.g., Montgomery College" bgColor="gray.50" border="1px solid #ccc" />
+            </Field.Root>
+            <Field.Root>
+              <Field.Label>Classes Already Taken</Field.Label>
+              <Textarea
+                placeholder="e.g., Calculus I, Intro to Programming..."
+                bgColor="gray.50"
+                border="1px solid #ccc"
+                rows={3} />
+            </Field.Root>
+            <Field.Root>
+              <Field.Label>Total Credits Completed</Field.Label>
+              <Input placeholder="e.g., 45 credits" bgColor="gray.50" border="1px solid #ccc" />
+            </Field.Root>
+            <Field.Root>
+              <Field.Label>Additional Comments</Field.Label>
+              <Textarea
+                bgColor="gray.50"
+                border="1px solid #ccc"
+                rows={4} />
+            </Field.Root>
+            <Stack direction="row" justifyContent="space-between" pt={4}>
+              <Button colorScheme="blue" width="48%" onClick={() => setShowPopup(false)}>
+                Submit
+              </Button>
+              <Button variant="outline" width="48%" onClick={() => setShowPopup(false)}>
+                Cancel
+              </Button>
+            </Stack>
+          </Stack>
+        </Stack>
+      )}
     </Stack>
   )
 }
