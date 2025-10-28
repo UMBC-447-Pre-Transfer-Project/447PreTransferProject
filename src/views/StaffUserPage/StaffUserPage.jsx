@@ -1,8 +1,17 @@
 import { Box, Button, Input, InputGroup, Stack, Table, Text, NativeSelect } from "@chakra-ui/react"
+import { useDispatch, useSelector } from "react-redux"
+import { getAllStudents } from "../../slices/studentSlice"
+import { useEffect } from "react"
 import { CiSearch } from "react-icons/ci"
 import { useState } from "react"
 
 const StaffUserPage = () => {
+  const dispatch = useDispatch()
+  const students = useSelector(state => state.students.students)
+  useEffect(() => {
+    dispatch(getAllStudents())
+  }, [])
+
   const initialFilterValues = ({
     searchTerm: '',
     major: '',
@@ -11,27 +20,16 @@ const StaffUserPage = () => {
   })
   const [dialogState, setDialogState] = useState(initialFilterValues)
 
-  // PLACEHOLDER STUDENT DATA
-  const studentData = [
-    { id: 1, firstName: "Alice", lastName: "Johnson", studentId: "AL123456", major: "Computer Science", creditsCompleted: 45, status: "Committed" },
-    { id: 2, firstName: "Bob", lastName: "Smith", studentId: "BO789012", major: "Mathematics", creditsCompleted: 60, status: "Committed" },
-    { id: 3, firstName: "Carol", lastName: "Williams", studentId: "CA345678", major: "Biology", creditsCompleted: 30, status: "Committed" },
-    { id: 4, firstName: "David", lastName: "Brown", studentId: "DA901234", major: "Engineering", creditsCompleted: 75, status: "Committed" },
-    { id: 5, firstName: "Emma", lastName: "Davis", studentId: "EM567890", major: "Psychology", creditsCompleted: 50, status: "Not Committed" },
-    { id: 6, firstName: "Frank", lastName: "Miller", studentId: "FR234567", major: "Business", creditsCompleted: 40, status: "Committed" },
-    { id: 7, firstName: "Grace", lastName: "Wilson", studentId: "GR890123", major: "English", creditsCompleted: 55, status: "Not Committed" },
-    { id: 8, firstName: "Henry", lastName: "Moore", studentId: "HE456789", major: "Chemistry", creditsCompleted: 65, status: "Committed" },
-  ]
 
   // Get unique values for filters
-  const uniqueMajors = [...new Set(studentData.map(s => s.major))].sort()
-  const uniqueStatuses = [...new Set(studentData.map(s => s.status))].sort()
+  const uniqueMajors = [...new Set(students.map(s => s.major))].sort()
+  const uniqueStatuses = [...new Set(students.map(s => s.status))].sort()
 
   // Credit ranges for filter dropdown
   const creditRanges = [30, 40, 60, 75]
 
   // Filter students based on search term and filters
-  const filteredStudents = studentData.filter(student => {
+  const filteredStudents = students.filter(student => {
     // Search by name (first or last) or student ID
     const matchesSearch = dialogState.searchTerm === "" ||
       student.firstName.toLowerCase().includes(searchTerm.toLowerCase()) ||

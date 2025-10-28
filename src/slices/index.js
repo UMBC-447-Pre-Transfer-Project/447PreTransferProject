@@ -1,10 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit'
 import loginSlice from './loginSlice'
-import transferStudentSlice from './transferStudentSlice'
+import student from './studentSlice'
 
 export const store = configureStore({
   reducer: {
     login: loginSlice,
-    transferStudent: transferStudentSlice
+    students: student
   }
 })

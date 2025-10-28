@@ -1,27 +1,23 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import axios from 'axios'
 
-export const getAllStudents = createAsyncThunk('pre-transfer/getAllStudents',
+export const getAllStudents = createAsyncThunk('student/getAllStudents',
   async(request, thunkAPI) => {
-    const res = axios.get(`http://localhost:8080/api/pre-transfer`, {
+    return await axios.get(`http://localhost:8080/api/student`, {
       headers: {
         'Content-Type': 'application/json'
-      },
-      params: {
-        key: 'name'
       }
     })
     .then(res => res.data)
     .catch(error => thunkAPI.rejectWithValue(error.response?.data || 'Request failed')
     )
-    return res
   }
 )
 
-const transferStudentSlice = createSlice({
-  name: 'transfer students',
+const studentSlice = createSlice({
+  name: 'students',
   initialState: {
-    list: [null]
+    students: []
   },
   extraReducers(builder) {
     builder
@@ -31,7 +27,7 @@ const transferStudentSlice = createSlice({
     .addCase(getAllStudents.fulfilled, (state, action) => {
       state.loading = false
       state.fulfilled = true
-      state.list = action.payload
+      state.students = action.payload
     })
     .addCase(getAllStudents.rejected, state => {
       state.rejected = true;
@@ -40,4 +36,4 @@ const transferStudentSlice = createSlice({
 })
 
 
-export default transferStudentSlice.reducer
+export default studentSlice.reducer

@@ -1,7 +1,7 @@
 import { Button, Card, Field, Grid, GridItem, Image, Input, Stack, Text } from "@chakra-ui/react"
 import { useDispatch, useSelector } from "react-redux"
 import BannerImage from '../../assets/images/homepage-banner.png'
-import { getAllStudents } from '../../slices/transferStudentSlice'
+import { getAllStudents } from '../../slices/studentSlice'
 import { useCallback, useEffect } from "react"
 
 const Homepage = () => {
