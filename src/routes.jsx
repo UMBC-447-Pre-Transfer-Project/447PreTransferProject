@@ -1,6 +1,7 @@
 import { createBrowserRouter } from 'react-router'
 import Homepage from './views/Homepage/Homepage'
 import StaffLoginPage from './views/StaffLoginPage/StaffLoginPage'
+import ContactPage from './views/ContactPage/ContactPage'
 import DefaultLayout from './views/DefaultLayout'
 import StaffLayout from './views/StaffLayout'
 import StaffDashboard from './views/StaffPage/StaffDashboard'
@@ -21,6 +22,10 @@ const Router = createBrowserRouter([
       {
         path: 'login',
         element: <StaffLoginPage/>
+      },
+      {
+        path: 'contact',
+        element: <ContactPage/>
       }
     ]
   },
