@@ -14,6 +14,19 @@ export const getAllStudents = createAsyncThunk('student/getAllStudents',
   }
 )
 
+export const insertStudent = createAsyncThunk('student/insertStudent',
+  async(request, thunkAPI) => {
+    return await axios.put(`http://localhost:8080/api/student`, request, {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    .then(res => res.data)
+    .catch(error => thunkAPI.rejectWithValue(error.response?.data || 'Request failed')
+    )
+  }
+)
+
 const studentSlice = createSlice({
   name: 'students',
   initialState: {

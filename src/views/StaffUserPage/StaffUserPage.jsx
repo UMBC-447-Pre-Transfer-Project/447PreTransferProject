@@ -11,7 +11,6 @@ const StaffUserPage = () => {
   useEffect(() => {
     dispatch(getAllStudents())
   }, [])
-
   const initialFilterValues = ({
     searchTerm: '',
     major: '',
@@ -45,13 +44,12 @@ const StaffUserPage = () => {
 
   // Export to CSV function
   const handleExport = () => {
-    const headers = ['First Name', 'Last Name', 'Student ID', 'Major', 'Credits Completed', 'Status']
+    const headers = ['First Name', 'Last Name', 'Major', 'Credits Completed', 'Status']
     const csvContent = [
       headers.join(','),
       ...filteredStudents.map(student => [
         student.firstName,
         student.lastName,
-        student.studentId,
         student.major,
         student.creditsCompleted,
         student.status
@@ -80,15 +78,11 @@ const StaffUserPage = () => {
         <Text fontSize={48} fontWeight='bold' color='black'>
           Student Directory
         </Text>
-        <Button onClick={handleExport} colorScheme='blue'>
-          Export to CSV
-        </Button>
       </Stack>
-
-      <Stack direction='row' gap={4} mb={4} flexWrap='wrap'>
+      <Stack direction={{ 'xs': 'column', lg: 'row' }} gap={4} mb={4} >
         <InputGroup startElement={<CiSearch size={20}/>} width='300px'>
           <Input
-            placeholder='Search by name or student ID...'
+            placeholder='Search by name'
             value={dialogState.searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             bgColor='white'
@@ -143,17 +137,22 @@ const StaffUserPage = () => {
             </NativeSelect.Field>
           </NativeSelect.Root>
         </Box>
-        <Box flex={1} />
-        <Button
-          onClick={() => {
-            setDialogState(initialFilterValues)
-          }}
-          colorScheme='red'
-          bgColor='red.500'
-          color='white'
-        >
-          Clear Filters
-        </Button>
+        <Box flex={1}/>
+        <Stack direction='row'>
+          <Button onClick={handleExport} colorScheme='blue'>
+            Export to CSV
+          </Button>
+          <Button
+            onClick={() => {
+              setDialogState(initialFilterValues)
+            }}
+            colorScheme='red'
+            bgColor='red.500'
+            color='white'
+          >
+            Clear Filters
+          </Button>
+        </Stack>
       </Stack>
 
       <Box bgColor='white' borderRadius='md' overflow='hidden'>
@@ -161,7 +160,6 @@ const StaffUserPage = () => {
           <Table.Header>
             <Table.Row>
               <Table.ColumnHeader color='black' bgColor='primary'>Name</Table.ColumnHeader>
-              <Table.ColumnHeader color='black' bgColor='primary'>Student ID</Table.ColumnHeader>
               <Table.ColumnHeader color='black' bgColor='primary'>Major</Table.ColumnHeader>
               <Table.ColumnHeader color='black' bgColor='primary'>Credits Completed</Table.ColumnHeader>
               <Table.ColumnHeader color='black' bgColor='primary'>Status</Table.ColumnHeader>
@@ -171,7 +169,6 @@ const StaffUserPage = () => {
             {filteredStudents.map(student => (
               <Table.Row key={student.id}>
                 <Table.Cell color='black'>{student.firstName} {student.lastName}</Table.Cell>
-                <Table.Cell color='black'>{student.studentId}</Table.Cell>
                 <Table.Cell color='black'>{student.major}</Table.Cell>
                 <Table.Cell color='black'>{student.creditsCompleted}</Table.Cell>
                 <Table.Cell color='black'>{student.status}</Table.Cell>
