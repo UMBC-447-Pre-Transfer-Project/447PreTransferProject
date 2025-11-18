@@ -1,5 +1,3 @@
-'use client'
-
 import {
   Box,
   HStack,
@@ -21,6 +19,9 @@ export const PasswordInput = React.forwardRef(
       visible: visibleProp,
       onVisibleChange,
       visibilityIcon = { on: <LuEye />, off: <LuEyeOff /> },
+      field,
+      form,
+      meta,
       ...rest
     } = props
 
@@ -50,14 +51,16 @@ export const PasswordInput = React.forwardRef(
         {...rootProps}
       >
         <Input
+          {...field}
           {...rest}
           ref={mergeRefs(ref, inputRef)}
           type={visible ? 'text' : 'password'}
         />
       </InputGroup>
     )
-  },
+  }
 )
+
 
 const VisibilityTrigger = React.forwardRef(
   function VisibilityTrigger(props, ref) {

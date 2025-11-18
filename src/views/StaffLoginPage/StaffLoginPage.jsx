@@ -1,16 +1,25 @@
-import { Box, Button, Card, Field, Image, Input, Stack, Text } from "@chakra-ui/react"
+import { Box, Button, Card, Field, Image, Stack, Text } from "@chakra-ui/react"
 import { PasswordInput } from "../../components/ui/password-input"
-import { Link, useNavigate } from 'react-router'
 import UMBCLogo from '../../assets/images/UMBC-header-logo.svg'
+import { login, signup } from "../../slices/loginSlice"
+import { useDispatch } from "react-redux"
+import { Form, Formik, Field as FormikField } from "formik"
+import TextField from '../../components/InputFields/TextField'
+import { useCallback, useState } from "react"
 
 const StaffLoginPage = () => {
-  const navigate = useNavigate()
-  const defaultValues = ''
-  
-  const handleSignIn = () => {
-    navigate('/staff')
-  }
-  
+  const dispatch = useDispatch()
+  const [state, setState] = useState(false)
+  const handleSignIn = useCallback((values) =>
+    dispatch(login(values))
+      .then(res => console.warn(res)),
+  [dispatch])
+
+  const handleSignUp = useCallback((values) =>
+    dispatch(signup(values))
+      .then(res => console.warn(res)),
+  [dispatch])
+
   return (
     <Stack
       height='calc(100vh - 96px)'
@@ -31,29 +40,58 @@ const StaffLoginPage = () => {
             <Image src={UMBCLogo} width='100%'/>
           </Box>
           <Card.Title>
-            Sign-up / Sign-in
+            {state ? 'Sign-up' : 'Sign-in'}
           </Card.Title>
         </Card.Header>
         <Card.Body alignItems='center' spaceY={4}>
-          <Field.Root m={2}>
-            <Field.Label>Email/Username</Field.Label>
-            <Input placeholder='Email/Username'/>
-          </Field.Root>
-          <Field.Root m={2}>
-            <Field.Label>Password</Field.Label>
-            <PasswordInput placeholder='Password'/>
-          </Field.Root>
-          <Button
-            onClick={handleSignIn}
-            width='5rem'
+          <Formik
+            initialValues={{
+              username: '',
+              password: ''
+            }}
+            onSubmit={(values) => {
+              if (state) {
+                handleSignUp(values)
+              } else {
+                handleSignIn(values)
+              }
+            }}
           >
-            Sign-in
-          </Button>
+            <Form>
+              <Field.Root m={2}>
+                <Field.Label>Email/Username</Field.Label>
+                <FormikField
+                  id='username'
+                  name='username'
+                  component={TextField}
+                />
+              </Field.Root>
+              <Field.Root m={2}>
+                <Field.Label>Password</Field.Label>
+                <FormikField
+                  id='password'
+                  name='password'
+                  component={PasswordInput}
+                />
+              </Field.Root>
+              <Button
+                type='submit'
+                width='5rem'
+              >
+                {state ? 'Sign-up' : 'Sign-in'}
+              </Button>
+            </Form>
+          </Formik>
         </Card.Body>
         <Card.Footer justifyContent='center'>
           <Stack alignItems='center'>
             <Text fontSize={12}>Don't Have an Account?</Text>
-            <Text fontSize={12}>Click Here</Text>
+            <Text fontSize={12} onClick={() =>
+              setState(!state)}
+              _hover={{ cursor: 'pointer' }}
+            >
+              Click Here
+            </Text>
           </Stack>
         </Card.Footer>
       </Card.Root>
