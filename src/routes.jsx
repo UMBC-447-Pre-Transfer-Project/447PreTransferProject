@@ -5,6 +5,7 @@ import StaffUserPage from './views/StaffUserPage/StaffUserPage'
 import ContactPage from './views/ContactPage/ContactPage'
 import StaffLayout from './views/StaffLayout'
 import DefaultLayout from './views/DefaultLayout'
+import TransferFormPage from './views/TransferFormPage/TransferFormPage'
 
 const Router = createBrowserRouter([
   {
@@ -26,6 +27,10 @@ const Router = createBrowserRouter([
       {
         path: 'contact',
         element: <ContactPage/>
+      },
+      {
+        path: 'transfer',
+        element: <TransferFormPage/>
       },
     ]
   },
