@@ -6,10 +6,17 @@ import { useDispatch } from "react-redux"
 import { Form, Formik, Field as FormikField } from "formik"
 import TextField from '../../components/InputFields/TextField'
 import { useCallback, useState } from "react"
+import { object, string } from 'yup'
+
+const validationSchema = object({
+    username: string().required('Username is required'),
+    password: string().required('Password is required')
+})
 
 const StaffLoginPage = () => {
   const dispatch = useDispatch()
   const [state, setState] = useState(false)
+
   const handleSignIn = useCallback((values) =>
     dispatch(login(values))
       .then(res => console.warn(res)),
@@ -45,6 +52,7 @@ const StaffLoginPage = () => {
         </Card.Header>
         <Card.Body alignItems='center' spaceY={4}>
           <Formik
+            validationSchema={validationSchema}
             initialValues={{
               username: '',
               password: ''
@@ -57,22 +65,30 @@ const StaffLoginPage = () => {
               }
             }}
           >
-            <Form>
-              <Field.Root m={2}>
+            {({ errors }) => <Form>
+              <Field.Root m={2} invalid={!!errors.username}>
                 <Field.Label>Email/Username</Field.Label>
                 <FormikField
                   id='username'
                   name='username'
                   component={TextField}
+                  errors={errors.username}
                 />
+                <Field.ErrorText>
+                  {errors.username}
+                </Field.ErrorText>
               </Field.Root>
-              <Field.Root m={2}>
+              <Field.Root m={2} invalid={!!errors.password}>
                 <Field.Label>Password</Field.Label>
                 <FormikField
                   id='password'
                   name='password'
                   component={PasswordInput}
+                  errors={errors.password}
                 />
+                <Field.ErrorText>
+                  {errors.password}
+                </Field.ErrorText>
               </Field.Root>
               <Button
                 type='submit'
@@ -80,7 +96,7 @@ const StaffLoginPage = () => {
               >
                 {state ? 'Sign-up' : 'Sign-in'}
               </Button>
-            </Form>
+            </Form>}
           </Formik>
         </Card.Body>
         <Card.Footer justifyContent='center'>

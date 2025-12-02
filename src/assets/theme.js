@@ -19,10 +19,10 @@ const theme = createSystem(defaultConfig, defineConfig({
         heading: { value: 600 }
       }
     },
+    breakpoints: {
+      xs: '200px'
+    }
   },
-  breakpoints: {
-    xs: '200px'
-  }
 }))
 
 export default theme

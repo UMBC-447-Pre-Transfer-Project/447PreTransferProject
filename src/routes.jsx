@@ -6,6 +6,7 @@ import ContactPage from './views/ContactPage/ContactPage'
 import StaffLayout from './views/StaffLayout'
 import DefaultLayout from './views/DefaultLayout'
 import TransferFormPage from './views/TransferFormPage/TransferFormPage'
+import FinancialAidPage from './views/FinancialAidPage/FinancialAidPage'
 
 const Router = createBrowserRouter([
   {
@@ -32,6 +33,10 @@ const Router = createBrowserRouter([
         path: 'transfer',
         element: <TransferFormPage/>
       },
+      {
+        path: 'financial-aid',
+        element: <FinancialAidPage/>
+      }
     ]
   },
   {
