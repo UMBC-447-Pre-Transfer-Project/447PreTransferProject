@@ -65,27 +65,29 @@ const StaffLoginPage = () => {
               }
             }}
           >
-            <Form>
-              <Field.Root m={2}>
+            {({ errors }) => <Form>
+              <Field.Root m={2} invalid={!!errors.username}>
                 <Field.Label>Email/Username</Field.Label>
                 <FormikField
                   id='username'
                   name='username'
                   component={TextField}
+                  errors={errors.username}
                 />
                 <Field.ErrorText>
-                  Username is required
+                  {errors.username}
                 </Field.ErrorText>
               </Field.Root>
-              <Field.Root m={2}>
+              <Field.Root m={2} invalid={!!errors.password}>
                 <Field.Label>Password</Field.Label>
                 <FormikField
                   id='password'
                   name='password'
                   component={PasswordInput}
+                  errors={errors.password}
                 />
                 <Field.ErrorText>
-                  Password is required
+                  {errors.password}
                 </Field.ErrorText>
               </Field.Root>
               <Button
@@ -94,7 +96,7 @@ const StaffLoginPage = () => {
               >
                 {state ? 'Sign-up' : 'Sign-in'}
               </Button>
-            </Form>
+            </Form>}
           </Formik>
         </Card.Body>
         <Card.Footer justifyContent='center'>
