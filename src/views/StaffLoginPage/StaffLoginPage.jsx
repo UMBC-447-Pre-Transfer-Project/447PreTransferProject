@@ -7,6 +7,7 @@ import { Form, Formik, Field as FormikField } from "formik"
 import TextField from '../../components/InputFields/TextField'
 import { useCallback, useState } from "react"
 import { object, string } from 'yup'
+import { useNavigate } from "react-router"
 
 const validationSchema = object({
     username: string().required('Username is required'),
@@ -15,11 +16,17 @@ const validationSchema = object({
 
 const StaffLoginPage = () => {
   const dispatch = useDispatch()
+  const navigate = useNavigate()
   const [state, setState] = useState(false)
 
   const handleSignIn = useCallback((values) =>
     dispatch(login(values))
-      .then(res => console.warn(res)),
+      .then(res => {
+        console.warn(res)
+        if (!!res) {
+          navigate('/staff')
+        }
+      }),
   [dispatch])
 
   const handleSignUp = useCallback((values) =>
