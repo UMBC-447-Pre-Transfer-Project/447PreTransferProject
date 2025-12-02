@@ -6,10 +6,17 @@ import { useDispatch } from "react-redux"
 import { Form, Formik, Field as FormikField } from "formik"
 import TextField from '../../components/InputFields/TextField'
 import { useCallback, useState } from "react"
+import { object, string } from 'yup'
+
+const validationSchema = object({
+    username: string().required('Username is required'),
+    password: string().required('Password is required')
+})
 
 const StaffLoginPage = () => {
   const dispatch = useDispatch()
   const [state, setState] = useState(false)
+
   const handleSignIn = useCallback((values) =>
     dispatch(login(values))
       .then(res => console.warn(res)),
@@ -45,6 +52,7 @@ const StaffLoginPage = () => {
         </Card.Header>
         <Card.Body alignItems='center' spaceY={4}>
           <Formik
+            validationSchema={validationSchema}
             initialValues={{
               username: '',
               password: ''
@@ -65,6 +73,9 @@ const StaffLoginPage = () => {
                   name='username'
                   component={TextField}
                 />
+                <Field.ErrorText>
+                  Username is required
+                </Field.ErrorText>
               </Field.Root>
               <Field.Root m={2}>
                 <Field.Label>Password</Field.Label>
@@ -73,6 +84,9 @@ const StaffLoginPage = () => {
                   name='password'
                   component={PasswordInput}
                 />
+                <Field.ErrorText>
+                  Password is required
+                </Field.ErrorText>
               </Field.Root>
               <Button
                 type='submit'

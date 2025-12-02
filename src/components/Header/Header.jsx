@@ -7,29 +7,41 @@ import UMBCLogo from '../../assets/images/UMBC-header-logo.svg'
 const Header = ({}) => {
   const [open, setOpen] = useState(false)
 
+  const menuOptions = [
+    {
+      name: 'Homepage',
+      link: '/'
+    },
+    {
+      name: 'Financial Aid',
+      link: '/financial-aid'
+    },
+    {
+      name: 'Contact Page',
+      link: '/contact'
+    }
+  ]
+
   return (
     <Stack p={2} bgColor='header' width='100%' direction='row' alignItems='center'>
-      <Stack direction='row' alignItems='center' spaceX={8}>
+      <Stack direction='row' alignItems='center' spaceX={{ xs: 2, md: 8 }}>
         <Link to='/'>
             <Image src={UMBCLogo} width='5rem'/>
         </Link>
-        <Text fontSize={30} fontWeight='heading' color='white' width='100%'>
+        <Text fontSize={{ sm: 24, md: 30 }} fontWeight='heading' color='white' width='100%'>
           UMBC Pre-Transfer
         </Text>
       </Stack>
       <Box flex={1}/>
       <Stack direction='row' gap={10}>
-        <InputGroup startElement={<CiSearch size={20}/>} justifySelf='flex-end'>
-          <Input bgColor='default' placeholder='Search' width='400px'/>
-        </InputGroup>
         <Drawer.Root open={open} onOpenChange={(e) => setOpen(e.open)}>
           <Drawer.Trigger asChild>
-            <IconButton justifySelf='flex-end' px={4}>
+            <IconButton justifySelf='flex-end' px={{ sm: 0, lg: 4 }}>
               <CiMenuBurger/>
             </IconButton>
           </Drawer.Trigger>
           <Portal>
-            <Drawer.Backdrop />
+            <Drawer.Backdrop/>
             <Drawer.Positioner>
               <Drawer.Content>
                 <Drawer.Header>
@@ -46,16 +58,12 @@ const Header = ({}) => {
                   onClick={() => setOpen(false)}
                 >
                   <Stack spaceY={4}>
-                    <Box>
-                      <Link to='/'>
-                        <Text textAlign='center'>Homepage</Text>
-                      </Link>
-                    </Box>
-                    <Box>
-                      <Link to='/contact'>
-                        <Text textAlign='center'>Contact Page</Text>
-                      </Link>
-                    </Box>
+                    {menuOptions.map((option) => <Box key={option.name}>
+                        <Link to={option.link}>
+                          <Text textAlign='center'>{option.name}</Text>
+                        </Link>
+                      </Box>
+                  )}
                   </Stack>
                   {/*This is for everything at the bottom*/}
                   <Box flexGrow={1}/>

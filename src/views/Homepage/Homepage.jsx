@@ -29,12 +29,17 @@ const Homepage = () => {
   return (
     <Stack width='100%' height='100%' alignItems='center' gap={0}>
       <Stack bgColor='primary' alignItems='center' pt={2}>
-        <Text fontWeight={800} pt={2} fontSize={30}>
+        <Text fontWeight={800} pt={2} fontSize={{ xs: 24, md: 30 }} style={{textAlign: 'center'}}>
           Thinking about joining the retriever community?
         </Text>
-        <Grid templateColumns='repeat(12, 1fr)' mx={4} height='700px'>
+        <Grid
+          templateColumns='repeat(12, 1fr)'
+          templateRows='repeat(12, 1fr)'
+          mx={4}
+          height='700px'
+        >
           <GridItem colSpan={12}>
-            <Text fontSize={40} py={4} px={8}>
+            <Text fontSize={{ xs: 30, md: 40 }} py={4} px={8}>
               Start your journey here by filling out this form to see the best course of action for you!
             </Text>
           </GridItem>
