@@ -31,7 +31,7 @@ const StaffLoginPage = () => {
 
   const handleSignUp = useCallback((values) =>
     dispatch(signup(values))
-      .then(res => console.warn(res)),
+      .then(res => res.data),
   [dispatch])
 
   return (

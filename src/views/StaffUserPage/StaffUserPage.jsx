@@ -1,16 +1,27 @@
-import { Box, Button, Input, InputGroup, Stack, Table, Text, NativeSelect } from "@chakra-ui/react"
+import {
+  Box,
+  Button,
+  Input,
+  InputGroup,
+  Stack,
+  Table,
+  Text,
+  NativeSelect,
+} from "@chakra-ui/react"
 import { useDispatch, useSelector } from "react-redux"
 import { getAllStudents } from "../../slices/studentSlice"
 import { useEffect } from "react"
 import { CiSearch } from "react-icons/ci"
 import { useState } from "react"
+import StudentActions from "./StudentActions"
 
 const StaffUserPage = () => {
   const dispatch = useDispatch()
   const students = useSelector(state => state.students.students)
   useEffect(() => {
     dispatch(getAllStudents())
-  }, [])
+  }, [dispatch, getAllStudents])
+
   const initialFilterValues = ({
     searchTerm: '',
     major: '',
@@ -19,16 +30,16 @@ const StaffUserPage = () => {
   })
   const [dialogState, setDialogState] = useState(initialFilterValues)
 
-
+  console.warn(!!students)
   // Get unique values for filters
-  const uniqueMajors = [...new Set(students.map(s => s.major))].sort()
-  const uniqueStatuses = [...new Set(students.map(s => s.status))].sort()
-
+  const uniqueMajors = !!students ? [...new Set(students?.map(s => s.major))].sort() : []
+  const uniqueStatuses = !!students ? [...new Set(students?.map(s => s.status))].sort() : []
+  console.warn(students)
   // Credit ranges for filter dropdown
   const creditRanges = [30, 40, 60, 75]
 
   // Filter students based on search term and filters
-  const filteredStudents = students.filter(student => {
+  const filteredStudents = !!students ? students?.filter(student => {
     // Search by name (first or last) or student ID
     const matchesSearch = dialogState.searchTerm === "" ||
       student.firstName.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -40,14 +51,14 @@ const StaffUserPage = () => {
     const matchesCredits = dialogState.credits === "" || student.creditsCompleted >= parseInt(dialogState.credits)
 
     return matchesSearch && matchesMajor && matchesStatus && matchesCredits
-  })
+  }) : []
 
   // Export to CSV function
   const handleExport = () => {
     const headers = ['First Name', 'Last Name', 'Major', 'Credits Completed', 'Status']
     const csvContent = [
       headers.join(','),
-      ...filteredStudents.map(student => [
+      ...filteredStudents?.map(student => [
         student.firstName,
         student.lastName,
         student.major,
@@ -115,7 +126,7 @@ const StaffUserPage = () => {
               style={{ color: 'black', backgroundColor: 'white' }}
             >
               <option value="" style={{ backgroundColor: 'white', color: 'black' }}>All Statuses</option>
-              {uniqueStatuses.map(status => (
+              {uniqueStatuses?.map(status => (
                 <option key={status} value={status} style={{ backgroundColor: 'white', color: 'black' }}>{status}</option>
               ))}
             </NativeSelect.Field>
@@ -131,7 +142,7 @@ const StaffUserPage = () => {
               style={{ color: 'black', backgroundColor: 'white' }}
             >
               <option value="" style={{ backgroundColor: 'white', color: 'black' }}>All Credits</option>
-              {creditRanges.map(credits => (
+              {creditRanges?.map(credits => (
                 <option key={credits} value={credits.toString()} style={{ backgroundColor: 'white', color: 'black' }}>≥{credits} Credits</option>
               ))}
             </NativeSelect.Field>
@@ -154,31 +165,33 @@ const StaffUserPage = () => {
           </Button>
         </Stack>
       </Stack>
-
-      <Box bgColor='white' borderRadius='md' overflow='hidden'>
+      <Box bgColor='white' width='100%' borderRadius='md' overflow='hidden'>
         <Table.Root variant='outline'>
           <Table.Header>
             <Table.Row>
+              <Table.ColumnHeader color='black' bgColor='primary'>Actions</Table.ColumnHeader>
               <Table.ColumnHeader color='black' bgColor='primary'>Name</Table.ColumnHeader>
-              <Table.ColumnHeader color='black' bgColor='primary'>Major</Table.ColumnHeader>
+              <Table.ColumnHeader color='black' bgColor='primary'>Current Major</Table.ColumnHeader>
               <Table.ColumnHeader color='black' bgColor='primary'>Credits Completed</Table.ColumnHeader>
-              <Table.ColumnHeader color='black' bgColor='primary'>Status</Table.ColumnHeader>
+              <Table.ColumnHeader color='black' bgColor='primary'>High School Status</Table.ColumnHeader>
             </Table.Row>
           </Table.Header>
           <Table.Body>
-            {filteredStudents.map(student => (
+            {filteredStudents?.map(student => (
               <Table.Row key={student.id}>
-                <Table.Cell color='black'>{student.firstName} {student.lastName}</Table.Cell>
-                <Table.Cell color='black'>{student.major}</Table.Cell>
-                <Table.Cell color='black'>{student.creditsCompleted}</Table.Cell>
-                <Table.Cell color='black'>{student.status}</Table.Cell>
+                <Table.Cell>
+                  <StudentActions student={student}/>
+                </Table.Cell>
+                <Table.Cell>{student.firstName} {student.lastName}</Table.Cell>
+                <Table.Cell>{student.currentMajor}</Table.Cell>
+                <Table.Cell>{student.creditsCompleted}</Table.Cell>
+                <Table.Cell>{student.highSchoolStatus}</Table.Cell>
               </Table.Row>
             ))}
           </Table.Body>
         </Table.Root>
       </Box>
-
-      {filteredStudents.length === 0 && (
+      {filteredStudents?.length === 0 && (
         <Text textAlign='center' mt={4} color='gray.500'>
           No students found matching your search.
         </Text>
