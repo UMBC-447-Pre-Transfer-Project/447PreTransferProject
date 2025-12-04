@@ -13,8 +13,16 @@ const Header = ({}) => {
       link: '/'
     },
     {
+      name: 'Transfer Information',
+      link: '/transfer-info'
+    },
+    {
       name: 'Financial Aid',
       link: '/financial-aid'
+    },
+    {
+      name: '4-Year Degree Plans',
+      link: '/four-year'
     },
     {
       name: 'Contact Page',

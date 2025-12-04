@@ -7,6 +7,8 @@ import StaffLayout from './views/StaffLayout'
 import DefaultLayout from './views/DefaultLayout'
 import TransferFormPage from './views/TransferFormPage/TransferFormPage'
 import FinancialAidPage from './views/FinancialAidPage/FinancialAidPage'
+import FourYearPage from './views/FourYearPage/FourYearPage'
+import TransferInfoPage from './views/TransferInfoPage/TransferInfoPage'
 
 const Router = createBrowserRouter([
   {
@@ -36,6 +38,14 @@ const Router = createBrowserRouter([
       {
         path: 'financial-aid',
         element: <FinancialAidPage/>
+      },
+      {
+        path: 'four-year',
+        element: <FourYearPage/>
+      },
+      {
+        path: 'transfer-info',
+        element: <TransferInfoPage/>
       }
     ]
   },
