@@ -45,7 +45,7 @@ const StaffLoginPage = () => {
       <Card.Root
         variant='elevated'
         height='500px'
-        width='400px'
+        width={{ xs: '300px', md: '400px' }}
         textAlign='center'
         m={2}
       >
@@ -64,13 +64,7 @@ const StaffLoginPage = () => {
               username: '',
               password: ''
             }}
-            onSubmit={(values) => {
-              if (state) {
-                handleSignUp(values)
-              } else {
-                handleSignIn(values)
-              }
-            }}
+            onSubmit={(values) => !!state ? handleSignUp(values) : handleSignIn(values)}
           >
             {({ errors }) => <Form>
               <Field.Root m={2} invalid={!!errors.username}>

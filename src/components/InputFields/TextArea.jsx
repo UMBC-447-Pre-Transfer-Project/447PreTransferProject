@@ -1,7 +1,7 @@
-import { Input } from '@chakra-ui/react'
+import { Textarea } from '@chakra-ui/react'
 
 const TextField = ({ field }, props) =>
-  <Input
+  <Textarea
     bg='white'
     {...field}
     {...props}
