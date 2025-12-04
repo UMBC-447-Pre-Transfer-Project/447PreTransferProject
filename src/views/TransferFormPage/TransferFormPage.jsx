@@ -1,10 +1,8 @@
 import {
     Button,
     Field,
-    Input,
     Stack,
     Text,
-    Textarea,
     RadioGroup,
     HStack,
     Card,
@@ -53,10 +51,9 @@ const TransferFormPage = () => {
   }
 
   const handleSubmit = (values) => {
-    console.warn(values)
     dispatch(insertStudent(values))
     alert("Thank you! Your pre-transfer advising request has been submitted.")
-    //navigate("/")
+    navigate("/")
   }
   return (
     <Stack maxW="900px" mx="auto" mt={10} px={4} spacing={8}>
