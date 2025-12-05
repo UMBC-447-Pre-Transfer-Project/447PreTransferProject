@@ -11,7 +11,7 @@ export const login = createAsyncThunk('login/',
         password
       }
     }
-    axios.put('http://localhost:8080/auth/login', null, config)
+    await axios.put('http://localhost:8080/auth/login', null, config)
       .then(res => res.data)
       .catch(error => console.warn(error))
   }
@@ -27,7 +27,7 @@ export const signup = createAsyncThunk('signup/',
         password
       }
     }
-    axios.post('http://localhost:8080/auth/signup', null, config)
+    await axios.post('http://localhost:8080/auth/signup', null, config)
       .then(res => res.status)
       .catch(error => console.warn(error))
   }
