@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import axios from 'axios'
 
 export const getAllStudents = createAsyncThunk('student/getAllStudents',
-  async(request, thunkAPI) => {
+  async(_, thunkAPI) => {
     return await axios.get(`http://localhost:8080/api/student`, {
       headers: {
         'Content-Type': 'application/json'
@@ -16,8 +16,7 @@ export const getAllStudents = createAsyncThunk('student/getAllStudents',
 
 export const insertStudent = createAsyncThunk('student/insertStudent',
   async(request, thunkAPI) => {
-    const { id } = request
-    request._id = id
+    console.warn(request)
     return axios.put(`http://localhost:8080/api/student`, request, {
       headers: {
         'Content-Type': 'application/json'
@@ -39,15 +38,18 @@ export const deleteStudent = createAsyncThunk('student/deleteStudent',
       params: {
         id
       }
-    }).then(res => console.warn(res.data))
-    .catch(error => console.warn(error))
+    }).then(res => res.status)
+    .catch(error => alert('Delete Failed'))
   }
 )
 
 const studentSlice = createSlice({
   name: 'students',
   initialState: {
-    students: []
+    students: [],
+    pending: false,
+    fulfilled: false,
+    rejected: false
   },
   extraReducers(builder) {
     builder
@@ -68,7 +70,8 @@ const studentSlice = createSlice({
     .addCase(insertStudent.fulfilled, (state, action) => {
       state.loading = false
       state.fulfilled = true
-      state.students = action.payload
+      state.students = state.students.map((student) =>
+        student.id === action.payload.id ? action.payload : student)
     })
     .addCase(insertStudent.rejected, state => {
       state.rejected = true;

@@ -30,16 +30,15 @@ const StaffUserPage = () => {
   })
   const [dialogState, setDialogState] = useState(initialFilterValues)
 
-  console.warn(!!students)
   // Get unique values for filters
-  const uniqueMajors = !!students ? [...new Set(students?.map(s => s.major))].sort() : []
-  const uniqueStatuses = !!students ? [...new Set(students?.map(s => s.status))].sort() : []
-  console.warn(students)
+  const uniqueMajors = [...new Set(students?.map(s => s.currentMajor))]?.sort() ?? []
+  const uniqueStatuses = [...new Set(students?.map(s => s.highSchoolStatus))]?.sort() ?? []
+
   // Credit ranges for filter dropdown
   const creditRanges = [30, 40, 60, 75]
 
   // Filter students based on search term and filters
-  const filteredStudents = !!students ? students?.filter(student => {
+  const filteredStudents = students?.filter(student => {
     // Search by name (first or last) or student ID
     const matchesSearch = dialogState.searchTerm === "" ||
       student.firstName.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -51,7 +50,7 @@ const StaffUserPage = () => {
     const matchesCredits = dialogState.credits === "" || student.creditsCompleted >= parseInt(dialogState.credits)
 
     return matchesSearch && matchesMajor && matchesStatus && matchesCredits
-  }) : []
+  }) ?? []
 
   // Export to CSV function
   const handleExport = () => {
@@ -109,7 +108,7 @@ const StaffUserPage = () => {
               color='black'
               style={{ color: 'black', backgroundColor: 'white' }}
             >
-              <option value="" style={{ backgroundColor: 'white', color: 'black' }}>All Majors</option>
+              <option value='' style={{ backgroundColor: 'white', color: 'black' }}>All Majors</option>
               {uniqueMajors.map(major => (
                 <option key={major} value={major} style={{ backgroundColor: 'white', color: 'black' }}>{major}</option>
               ))}

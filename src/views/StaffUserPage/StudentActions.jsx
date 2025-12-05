@@ -56,7 +56,7 @@ const StudentActions = ({ student }) => {
   const handleChange = (state) => setDialogState({...dialogState, ...state})
 
   const updateStudent = (values) => {
-    dispatch(insertStudent(values))
+    dispatch(insertStudent({ ...values, id: student.id }))
   }
 
   const removeStudent = (values) => {
@@ -71,14 +71,12 @@ const StudentActions = ({ student }) => {
     onEscapeKeyDown={() => handleChange({ edit: false })}
     onInteractOutside={() => handleChange({ edit: false })}
   >
-    <Dialog.Trigger>
-      <IconButton
-        size='xs'
-        onClick={() => handleChange({ edit: true })}
-      >
-        <FaEdit/>
-      </IconButton>
-    </Dialog.Trigger>
+    <IconButton
+      size='xs'
+      onClick={() => handleChange({ edit: true })}
+    >
+      <FaEdit/>
+    </IconButton>
     <Portal>
       <Dialog.Backdrop />
         <Dialog.Positioner>
