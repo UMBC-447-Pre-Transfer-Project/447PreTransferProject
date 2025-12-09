@@ -32,7 +32,7 @@ const StaffUserPage = () => {
 
   // Get unique values for filters
   const uniqueMajors = [...new Set(students?.map(s => s.currentMajor))]?.sort() ?? []
-  const uniqueStatuses = [...new Set(students?.map(s => s.highSchoolStatus))]?.sort() ?? []
+  const uniqueStatuses = ['Yes', 'No', 'Dual Enrolled']
 
   // Credit ranges for filter dropdown
   const creditRanges = [30, 40, 60, 75]
@@ -45,13 +45,12 @@ const StaffUserPage = () => {
       student.lastName.toLowerCase().includes(searchTerm.toLowerCase()) ||
       student.studentId.toLowerCase().includes(searchTerm.toLowerCase())
 
-    const matchesMajor = dialogState.major === "" || student.major === dialogState.major
-    const matchesStatus = dialogState.status === "" || student.status === dialogState.status
+    const matchesMajor = dialogState.major === "" || student.currentMajor === dialogState.major
+    const matchesStatus = dialogState.status === "" || student.highSchoolStatus === dialogState.status
     const matchesCredits = dialogState.credits === "" || student.creditsCompleted >= parseInt(dialogState.credits)
 
     return matchesSearch && matchesMajor && matchesStatus && matchesCredits
   }) ?? []
-
   // Export to CSV function
   const handleExport = () => {
     const headers = ['First Name', 'Last Name', 'Major', 'Credits Completed', 'Status']
@@ -84,8 +83,10 @@ const StaffUserPage = () => {
       bgColor='default'
       p={8}
     >
+      <Stack>
+      </Stack>
       <Stack direction='row' justifyContent='space-between' alignItems='center' mb={6}>
-        <Text fontSize={48} fontWeight='bold' color='black'>
+        <Text fontSize={24} fontWeight='bold' color='black'>
           Student Directory
         </Text>
       </Stack>
