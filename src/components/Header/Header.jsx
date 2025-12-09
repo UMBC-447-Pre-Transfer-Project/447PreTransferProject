@@ -36,7 +36,7 @@ const Header = ({}) => {
         <Link to='/'>
             <Image src={UMBCLogo} width='5rem'/>
         </Link>
-        <Text fontSize={{ sm: 24, md: 30 }} fontWeight='heading' color='white' width='100%'>
+        <Text fontSize={{ xs: 24, md: 30 }} fontWeight='heading' color='white' width='100%'>
           UMBC Pre-Transfer
         </Text>
       </Stack>
@@ -44,7 +44,7 @@ const Header = ({}) => {
       <Stack direction='row' gap={10}>
         <Drawer.Root open={open} onOpenChange={(e) => setOpen(e.open)}>
           <Drawer.Trigger asChild>
-            <IconButton justifySelf='flex-end' px={{ sm: 0, lg: 4 }}>
+            <IconButton justifySelf='flex-end' px={{ xs: 0, lg: 4 }}>
               <CiMenuBurger/>
             </IconButton>
           </Drawer.Trigger>

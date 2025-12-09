@@ -1,14 +1,15 @@
+import { lazy } from 'react'
 import { createBrowserRouter } from 'react-router'
 import Homepage from './views/Homepage/Homepage'
-import StaffLoginPage from './views/StaffLoginPage/StaffLoginPage'
-import StaffUserPage from './views/StaffUserPage/StaffUserPage'
-import ContactPage from './views/ContactPage/ContactPage'
-import StaffLayout from './views/StaffLayout'
-import DefaultLayout from './views/DefaultLayout'
-import TransferFormPage from './views/TransferFormPage/TransferFormPage'
-import FinancialAidPage from './views/FinancialAidPage/FinancialAidPage'
-import FourYearPage from './views/FourYearPage/FourYearPage'
-import TransferInfoPage from './views/TransferInfoPage/TransferInfoPage'
+const StaffLoginPage = lazy(() => import('./views/StaffLoginPage/StaffLoginPage'))
+const StaffUserPage = lazy(() => import('./views/StaffUserPage/StaffUserPage'))
+const ContactPage = lazy(() => import('./views/ContactPage/ContactPage'))
+const StaffLayout = lazy(() => import('./views/StaffLayout'))
+const DefaultLayout = lazy(() => import('./views/DefaultLayout'))
+const TransferFormPage = lazy(() => import('./views/TransferFormPage/TransferFormPage'))
+const FinancialAidPage = lazy(() => import('./views/FinancialAidPage/FinancialAidPage'))
+const FourYearPage = lazy(() => import('./views/FourYearPage/FourYearPage'))
+const TransferInfoPage = lazy(() => import('./views/TransferInfoPage/TransferInfoPage'))
 
 const Router = createBrowserRouter([
   {
