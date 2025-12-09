@@ -27,6 +27,10 @@ const Header = ({}) => {
     {
       name: 'Contact Page',
       link: '/contact'
+    },
+    {
+      name: 'Degree Requirements and Policies',
+      link: '/degree-info'
     }
   ]
 

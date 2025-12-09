@@ -34,7 +34,6 @@ const TransferFormPage = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const location = useLocation()
-  // Pre-fill email/first/last from homepage
 
   const initialValues = {
     email: location.state.email ?? "",
@@ -100,7 +99,6 @@ const TransferFormPage = () => {
                     {errors.email}
                   </Field.ErrorText>
                 </Field.Root>
-                {/* High School Diploma - Radio Buttons (exactly like your example) */}
                 <Field.Root invalid={errors.highSchoolStatus}>
                   <Field.Label>Do you have a high school diploma or equivalent?</Field.Label>
                   <FormikField
@@ -140,7 +138,6 @@ const TransferFormPage = () => {
                     {errors.highSchoolStatus}
                   </Field.ErrorText>
                 </Field.Root>
-                {/* Campus Preference - Radio Buttons */}
                 <Field.Root invalid={errors.mainCampus}>
                   <Field.Label>Campus Preference</Field.Label>
                   <FormikField
@@ -170,7 +167,6 @@ const TransferFormPage = () => {
                     {errors.mainCampus}
                   </Field.ErrorText>
                 </Field.Root>
-                {/* Name Fields */}
                 <HStack>
                   <Field.Root flex={1} invalid={errors.firstName}>
                     <Field.Label>First Name</Field.Label>
@@ -253,9 +249,8 @@ const TransferFormPage = () => {
                     {errors.meetingGoals}
                   </Field.ErrorText>
                 </Field.Root>
-                {/*  Upload Warning */}
                 <Box bg="red.100" p={6} borderRadius="md">
-                  <Text fontWeight="bold" fontSize="lg" color="red">: Upload Your Documents</Text>
+                  <Text fontWeight="bold" fontSize="lg" color="red">IMPORTANT: Upload Your Documents</Text>
                   <Text fontWeight="bold" color="red.600">
                     Your last name MUST be in every filename!
                   </Text>

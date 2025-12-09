@@ -10,6 +10,7 @@ const TransferFormPage = lazy(() => import('./views/TransferFormPage/TransferFor
 const FinancialAidPage = lazy(() => import('./views/FinancialAidPage/FinancialAidPage'))
 const FourYearPage = lazy(() => import('./views/FourYearPage/FourYearPage'))
 const TransferInfoPage = lazy(() => import('./views/TransferInfoPage/TransferInfoPage'))
+const DegreePage = lazy(() => import('./views/DegreePage/DegreePage'))
 
 const Router = createBrowserRouter([
   {
@@ -47,6 +48,10 @@ const Router = createBrowserRouter([
       {
         path: 'transfer-info',
         element: <TransferInfoPage/>
+      },
+      {
+        path: 'degree-info',
+        element: <DegreePage/>
       }
     ]
   },
